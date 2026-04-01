@@ -1,0 +1,25 @@
+import { Given, When, Then } from "@cucumber/cucumber";
+import { expect } from "@playwright/test";
+import {page} from "../steps/base.hooks"
+
+Given('the user navigates to {string}', async (url) => {
+  await page.goto(url);
+});
+
+When('the user clicks on {string}', async (arg) => {
+  // Click the get started link.
+  // await page.getByRole('link', { name: arg }).click();
+  await page.getByText(arg).click();
+
+});
+
+Then('verify page title has {string}', async (arg) => {
+  // Expects page to have a heading with the name of Installation.
+  await expect(page.getByRole('heading', { name: arg })).toBeVisible();
+  // await expect(page.getByText(arg)).toBeVisible();
+});
+
+Then('the user enter {string} in {string}', async (argValue, argField) => {
+  // Expects page to have a heading with the name of Installation.
+  await page.getByText(argField).fill(argValue);
+});
